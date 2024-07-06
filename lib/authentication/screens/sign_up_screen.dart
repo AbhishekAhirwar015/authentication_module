@@ -1,4 +1,5 @@
 import 'package:authentication_screen/authentication/widgets/button_widget.dart';
+import 'package:authentication_screen/authentication/widgets/country_code_drop_down.dart';
 import 'package:authentication_screen/authentication/widgets/custom_icon_container.dart';
 import 'package:authentication_screen/constants/text_style.dart';
 import 'package:flutter/material.dart';
@@ -123,10 +124,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   child: TextFieldWidget(
                     controller: mobileController,
                     hintText: 'Mobile Number',
-                    leadingIcon: Padding(
-                      padding: const EdgeInsets.all(14),
-                      child: SvgPicture.asset('assets/icons/mobile.svg'),
-                    ),
+                    leadingIcon: const CountryCodeDropdown(),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter your mobile number';

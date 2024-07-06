@@ -93,6 +93,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     validator: validatePhoneNumber,
                     maxLength: 10,
                     textInputType: TextInputType.number,
+                    isObsecureText: false,
                   ),
                 ),
                 const SizedBox(

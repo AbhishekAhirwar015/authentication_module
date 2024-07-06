@@ -2,8 +2,8 @@ import 'package:authentication_screen/authentication/widgets/button_widget.dart'
 import 'package:authentication_screen/constants/colors.dart';
 import 'package:authentication_screen/constants/text_style.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:pinput/pinput.dart';
 
 class OTPScreen extends StatefulWidget {
   const OTPScreen({super.key});
@@ -13,10 +13,7 @@ class OTPScreen extends StatefulWidget {
 }
 
 class _OTPScreenState extends State<OTPScreen> {
-  TextEditingController inputField1 = TextEditingController();
-  TextEditingController inputField2 = TextEditingController();
-  TextEditingController inputField3 = TextEditingController();
-  TextEditingController inputField4 = TextEditingController();
+  String? otp ;
 
   @override
   Widget build(BuildContext context) {
@@ -31,10 +28,15 @@ class _OTPScreenState extends State<OTPScreen> {
             ),
             Row(
               children: [
-                CircleAvatar(
-                  backgroundColor:
-                      ColorConstant.backgroundColorBlue.withOpacity(0.1),
-                  child: SvgPicture.asset("assets/icons/back.svg"),
+                InkWell(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: CircleAvatar(
+                    backgroundColor:
+                        ColorConstant.backgroundColorBlue.withOpacity(0.1),
+                    child: SvgPicture.asset("assets/icons/back.svg"),
+                  ),
                 ),
               ],
             ),
@@ -56,25 +58,33 @@ class _OTPScreenState extends State<OTPScreen> {
             const SizedBox(
               height: 34,
             ),
-            OtpTextField(
-              showFieldAsBox: true,
-              numberOfFields: 4,
-              autoFocus: false,
-              fillColor: ColorConstant.whiteColor,
-              filled: true,
-              borderRadius: BorderRadius.circular(10),
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
+            Pinput(
+              length: 4,
+              onCompleted: (value) {
+                setState(() {
+                  otp = value;
+                });
+              },
+              defaultPinTheme: PinTheme(
+                textStyle: TextStyleConstant.body16TextStyle.copyWith(fontWeight: FontWeight.w700),
+                height: 50,
+                width: 50,
+                margin: const EdgeInsets.symmetric(horizontal: 15),
+                decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
+                  color: Colors.white,
+                  shape: BoxShape.rectangle,
+                  boxShadow: [
+                    BoxShadow(
+                      color: ColorConstant.blackColor.withOpacity(0.12),
+                      blurRadius: 4,
+                    ),
+
+                  ]
+                )
               ),
             ),
+
             const SizedBox(
               height: 34,
             ),
@@ -82,7 +92,8 @@ class _OTPScreenState extends State<OTPScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 10),
               width: double.infinity,
               child: ButtonWidget(
-                onPressed: () {},
+                onPressed: () {
+                },
                 text: 'VERIFY',
               ),
             ),

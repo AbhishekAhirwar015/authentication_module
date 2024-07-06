@@ -21,6 +21,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController repeatPasswordController = TextEditingController();
   TextEditingController mobileController = TextEditingController();
+  bool hidePassword = true;
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +54,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10.0),
                   child: TextFieldWidget(
+                    isObsecureText: false,
                     controller: emailController,
                     textInputType: TextInputType.emailAddress,
                     hintText: 'Email',
@@ -72,15 +74,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10.0),
                   child: TextFieldWidget(
+                    isObsecureText: hidePassword,
                     controller: passwordController,
                     hintText: 'Password',
                     leadingIcon: Padding(
                       padding: const EdgeInsets.all(14),
                       child: SvgPicture.asset('assets/icons/password_lock.svg'),
                     ),
-                    trailingIcon: Padding(
-                      padding: const EdgeInsets.all(14),
-                      child: SvgPicture.asset('assets/icons/hide_password.svg'),
+                    trailingIcon: InkWell(
+                      onTap: (){
+                        setState(() {
+                          hidePassword = !hidePassword;
+                        });
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(14),
+                        child: SvgPicture.asset('assets/icons/hide_password.svg'),
+                      ),
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -97,15 +107,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10.0),
                   child: TextFieldWidget(
+                    isObsecureText: hidePassword,
                     controller: repeatPasswordController,
                     hintText: 'Repeat Password',
                     leadingIcon: Padding(
                       padding: const EdgeInsets.all(14),
                       child: SvgPicture.asset('assets/icons/password_lock.svg'),
                     ),
-                    trailingIcon: Padding(
-                      padding: const EdgeInsets.all(14),
-                      child: SvgPicture.asset('assets/icons/hide_password.svg'),
+                    trailingIcon: InkWell(
+                      onTap: (){
+                        setState(() {
+                          hidePassword = !hidePassword;
+                        });
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(14),
+                        child: SvgPicture.asset('assets/icons/hide_password.svg'),
+                      ),
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -122,6 +140,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10.0),
                   child: TextFieldWidget(
+                    isObsecureText: false,
                     controller: mobileController,
                     hintText: 'Mobile Number',
                     leadingIcon: const CountryCodeDropdown(),
